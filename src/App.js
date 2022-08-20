@@ -7,6 +7,10 @@ import DestinyIcon from './destiny-icon.png';
 import axios from "axios";
 
 import moment from 'moment';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+AOS.init();
 
 const clanBaseurl = "https://www.bungie.net/platform/groupv2";
 const axioDevConfig = {
@@ -72,30 +76,30 @@ function App() {
         <div className='Content'>
           <div className='Body-Content'>
             <div className='Bandeira-Clan'>
-              <img className='Bandeira' src={Bandeira} alt="Lonely Wolves Clan" />
+              <img className='Bandeira' src={Bandeira} alt="Lonely Wolves Clan" data-aos="fade-right" />
             </div>
-            <div className='Clan-Text'>
+            <div className='Clan-Text' data-aos="fade-up">
               <h1>"Por mais árdua que seja a jornada, continue caminhando. Seja a Luz e a Escuridão, mas nunca se curve a ninguém."</h1>
             </div>
           </div>
         </div>
         <div className='Red-Board'>
           <div className='clanInfo'>
-            <p>Somos uma comunidade de pessoas que gostam de jogar Destiny 2 e um lugar para chamar de lar. <br></br><br></br>
+            <p data-aos="fade-down">Somos uma comunidade de pessoas que gostam de jogar Destiny 2 e um lugar para chamar de lar. <br></br><br></br>
               Contamos com pessoas incríveis e com várias habilidades em Destiny 2, queremos ter experiências divertidas e envolventes, fazer amizades douradoruras.
               Se precisar de ajuda ou estiver procurando um lar para jogar, junte-se a nós!</p>
 
-            <p>Os lobos estão a solta.</p>
+            <p data-aos="fade-right">Os lobos estão a solta.</p>
 
             <div className="details-container">
               <ul className="clanList">
-                <li className="membercount"><div><h3>MEMBROS {clanData.members}</h3></div></li>
-                <li className="creation"><div><h3>Criado em {moment(clanData.createAt).format("DD/MM/YYYY")}</h3></div></li>
+                <li className="membercount" data-aos="fade-up"><div><h3>MEMBROS {clanData.members}</h3></div></li>
+                <li className="creation" data-aos="fade-up"><div><h3>Criado em {moment(clanData.createAt).format("DD/MM/YYYY")}</h3></div></li>
               </ul>
             </div>
           </div>
           <div className='ImageHunter'>
-            <img className='Hunter' src={Hunter} alt="Hunter" />
+            <img className='Hunter' src={Hunter} alt="Hunter" data-aos="fade-left" />
           </div>
         </div>
       </div>
@@ -114,7 +118,7 @@ function App() {
               <img className='IconDestiny' src={DestinyIcon} alt="Destiny" />
             </div>
             <h4>Faça parte do clan!</h4>
-            <a className='BtnInscricao' href='https://www.bungie.net/pt-br/ClanV2?groupid=4708371' target="_blank" rel='noreferrer'>Clique aqui</a>
+            <a className='BtnInscricao' href='https://www.bungie.net/pt-br/ClanV2?groupid=4708371' target="_blank" rel='noreferrer' data-aos="zoom-in-up" >Clique aqui</a>
           </div>
           <div className='Modalide-Jogo'>
             <div className='Coluna-Menor Border-Radius' style={{
