@@ -6,6 +6,8 @@ import Hunter from './hunter.png';
 import DestinyIcon from './destiny-icon.png';
 import axios from "axios";
 
+import moment from 'moment';
+
 const clanBaseurl = "https://www.bungie.net/platform/groupv2";
 const axioDevConfig = {
   headers: {
@@ -22,7 +24,7 @@ const axiosProdConfig = {
 };
 
 function App() {
-  const [clanData, setClanData] = useState();
+  const [clanData, setClanData] = useState({});
 
   useEffect(() => {
     const getClanData = async () => {
@@ -34,7 +36,6 @@ function App() {
         const treatDataResponse = {
           members: response.detail.memberCount,
           createAt: response.detail.creationDate,
-          progressClanInfo: response.detail.clanInfo,
           clanFounder: response.founder
         }
 
@@ -42,12 +43,12 @@ function App() {
 
       }
 
-      return;
-
     };
 
     getClanData().catch(err => console.log(err))
   }, []);
+
+  console.log(clanData)
 
   return (
     <div className="App">
@@ -86,10 +87,10 @@ function App() {
 
             <p>Os lobos estão a solta.</p>
 
-            <div class="details-container">
-              <ul class="clanList">
-                <li class="membercount"><div><h3>21 membros</h3></div></li>
-                <li class="creation"><div><h3>Criado em 30/08/2021</h3></div></li>
+            <div className="details-container">
+              <ul className="clanList">
+                <li className="membercount"><div><h3>MEMBROS {clanData.members}</h3></div></li>
+                <li className="creation"><div><h3>Criado em {moment(clanData.createAt).format("DD/MM/YYYY")}</h3></div></li>
               </ul>
             </div>
           </div>
@@ -113,7 +114,7 @@ function App() {
               <img className='IconDestiny' src={DestinyIcon} alt="Destiny" />
             </div>
             <h4>Faça parte do clan!</h4>
-            <button className='BtnInscricao'>Clique aqui</button>
+            <a className='BtnInscricao' href='https://www.bungie.net/pt-br/ClanV2?groupid=4708371' target="_blank" rel='noreferrer'>Clique aqui</a>
           </div>
           <div className='Modalide-Jogo'>
             <div className='Coluna-Menor Border-Radius' style={{

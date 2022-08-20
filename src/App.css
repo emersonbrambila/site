@@ -10,6 +10,16 @@
   width: 100%;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  margin: 0;
+}
+
 .Lonely-logo {
   width: 260px;
   margin: 0px 35px;
@@ -28,7 +38,7 @@
 }
 
 .Content {
-  max-width: 1440px;
+  max-width: 1280px;
   display: block;
   margin: 0 auto;
 }
@@ -104,12 +114,17 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  transition: all ease 0.8s;
 }
 
 .Inscricao h4 {
   font-size: 26px;
   color: #fff;
   margin-bottom: 39px;
+}
+
+.Inscricao:hover {
+  background-position-x: 100px;
 }
 
 .BtnInscricao {
@@ -123,6 +138,13 @@
   text-transform: uppercase;
   font-weight: 600;
   font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all ease 0.5s;
+}
+
+.BtnInscricao:hover {
+  background: #ff0000;
 }
 
 .IconDestiny {
@@ -143,4 +165,73 @@
 
 .Border-Radius {
   border-radius: 10px;
+}
+
+.clanList {
+  display: flex;
+}
+
+.Profile .clanList li:before {
+  font-size: 28px;
+  margin-right: 10px;
+}
+
+.clanList .membercount:before {
+  content: "\f10b";
+}
+
+.clanList li:before {
+  content: "\f119";
+  font-family: Bungie;
+  display: inline-block;
+  margin-right: 9px;
+  font-size: 35px;
+  margin-top: 5px;
+  min-width: 37px;
+}
+
+.clanList li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin: 0px 10px 0px 0px;
+}
+
+.clanList li div {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+
+}
+
+.Profile .clanList li div {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
 }
