@@ -1,10 +1,54 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 import Logo from './logo.svg';
 import Bandeira from './bandeira.png';
 import Hunter from './hunter.png';
 import DestinyIcon from './destiny-icon.png';
+import axios from "axios";
+
+const clanBaseurl = "https://www.bungie.net/platform/groupv2";
+const axioDevConfig = {
+  headers: {
+    'X-API-Key': process.env.REACT_APP_APIKEYDEV,
+    'content-type': 'application/json'
+  }
+};
+
+const axiosProdConfig = {
+  headers: {
+    'X-API-Key': process.env.REACT_APP_APIKEYPROD,
+    'content-type': 'application/json'
+  }
+};
 
 function App() {
+  const [clanData, setClanData] = useState();
+
+  useEffect(() => {
+    const getClanData = async () => {
+      const data = await axios.get(`${clanBaseurl}/4708371`, process.env.NODE_ENV === "development" ? axioDevConfig : axiosProdConfig);
+
+      if (data) {
+        const response = data.data.Response;
+
+        const treatDataResponse = {
+          members: response.detail.memberCount,
+          createAt: response.detail.creationDate,
+          progressClanInfo: response.detail.clanInfo,
+          clanFounder: response.founder
+        }
+
+        setClanData(treatDataResponse);
+
+      }
+
+      return;
+
+    };
+
+    getClanData().catch(err => console.log(err))
+  }, []);
+
   return (
     <div className="App">
       <div className='Header'>
@@ -35,7 +79,23 @@ function App() {
           </div>
         </div>
         <div className='Red-Board'>
-          <img className='Hunter' src={Hunter} alt="Hunter" />
+          <div className='clanInfo'>
+            <p>Somos uma comunidade de pessoas que gostam de jogar Destiny 2 e um lugar para chamar de lar. <br></br><br></br>
+              Contamos com pessoas incríveis e com várias habilidades em Destiny 2, queremos ter experiências divertidas e envolventes, fazer amizades douradoruras.
+              Se precisar de ajuda ou estiver procurando um lar para jogar, junte-se a nós!</p>
+
+            <p>Os lobos estão a solta.</p>
+
+            <div class="details-container">
+              <ul class="clanList">
+                <li class="membercount"><div><h3>21 membros</h3></div></li>
+                <li class="creation"><div><h3>Criado em 30/08/2021</h3></div></li>
+              </ul>
+            </div>
+          </div>
+          <div className='ImageHunter'>
+            <img className='Hunter' src={Hunter} alt="Hunter" />
+          </div>
         </div>
       </div>
       <div id="caracteristicas" className='Caracteristicas' style={{

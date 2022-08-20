@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700;800&display=swap');
 
+@font-face {
+  font-family: 'MaterialIcons';
+  src: local('MaterialIcons'), url(../public/fonts/MaterialIcons-Regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Bungie';
+  src: local('Bungie'), url(../public/fonts/fontbungle_35a586b3ca0a18dc7a14da6652dd02fa.woff) format('woff');
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
