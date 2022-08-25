@@ -294,7 +294,6 @@ button {
   position: absolute;
   top: 50%;
   background-position: center;
-  /* background-image: url('../img/figcaption_center.png'); */
   padding: 70px 30px;
 }
 
@@ -302,7 +301,6 @@ button {
   position: absolute;
   bottom: 0;
   background-position: bottom;
-  /* background-image: url(''); */
 }
 
 .zoomIn img {
