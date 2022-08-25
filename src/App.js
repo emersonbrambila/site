@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Logo from './logo.svg';
 import Bandeira from './bandeira.png';
+import Raid from './raid.png';
+import Crisol from './crisol.png';
+import Assalt from './assalt.png';
 import Hunter from './hunter.png';
 import DestinyIcon from './destiny-icon.png';
 import axios from "axios";
@@ -52,8 +55,6 @@ function App() {
     getClanData().catch(err => console.log(err))
   }, []);
 
-  console.log(clanData)
-
   return (
     <div className="App">
       <div className='Header'>
@@ -93,7 +94,7 @@ function App() {
 
             <div className="details-container">
               <ul className="clanList">
-                <li className="membercount" data-aos="fade-up"><div><h3>MEMBROS {clanData.members}</h3></div></li>
+                <li className="membercount" data-aos="fade-up"><div><h3>MEMBROS {clanData.members || 100 }</h3></div></li>
                 <li className="creation" data-aos="fade-up"><div><h3>Criado em {moment(clanData.createAt).format("DD/MM/YYYY")}</h3></div></li>
               </ul>
             </div>
@@ -121,24 +122,15 @@ function App() {
             <a className='BtnInscricao' href='https://www.bungie.net/pt-br/ClanV2?groupid=4708371' target="_blank" rel='noreferrer' data-aos="zoom-in-up" >Clique aqui</a>
           </div>
           <div className='Modalide-Jogo'>
-            <div className='Coluna-Menor Border-Radius' style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL + '/raid.png'})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPosition: '-70px',
-            }}></div>
-            <div className='Coluna-Menor Border-Radius' style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL + '/assalt.png'})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPosition: '-190px',
-            }}></div>
-            <div className='Coluna-Menor Border-Radius' style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL + '/crisol.png'})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPosition: '-40px',
-            }}></div>
+            <div className='Coluna-Menor Border-Radius figure'>
+              <img src={Raid} alt="Raid" />
+              <div className="figcaption">
+                <h2>Creative <span>Fresh</span></h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+              </div>
+            </div>
+            <div className='Coluna-Menor Border-Radius figure'></div>
+            <div className='Coluna-Menor Border-Radius figure'></div>
             <div className='Coluna-Maior Border-Radius'></div>
           </div>
         </div>
