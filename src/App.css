@@ -159,7 +159,8 @@ h3 {
 .Coluna-Menor {
   height: 460px;
   width: 19%;
-  background: #e94646;
+  /* background: #e94646; */
+  border: 1px solid #fff;
 }
 
 .Coluna-Maior {
@@ -242,18 +243,14 @@ button {
 }
 
 .figure {
+  position: relative;
   overflow: hidden;
 }
 
 .figcaption {
   left: 0;
   right: 0;
-  padding: 30px;
-  width: 100%;
-  background-repeat: repeat-x;
-  -webkit-background-size: auto 100%;
-  -o-background-size: auto 100%;
-  background-size: auto 100%;
+  padding: 0;
 }
 
 .figcaption h2 {
@@ -261,7 +258,7 @@ button {
   font-weight: 400;
   text-transform: uppercase;
   margin: 0;
-  bottom: -15px;
+  top: -15px;
   color: #FFF;
   font-size: 28px;
 }
@@ -287,7 +284,6 @@ button {
   position: absolute;
   top: 0;
   background-position: top;
-  /* background-image: url('../img/figcaption_top.png'); */
 }
 
 .figure .center {
@@ -315,9 +311,7 @@ button {
 }
 
 .zoomOut img {
-  min-width: 130%;
-  min-height: 130%;
-  position: absolute;
+  min-height: 120%;
   top: -15%;
   left: -15%;
   opacity: 0.7;

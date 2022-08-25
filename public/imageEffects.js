@@ -17,25 +17,25 @@ $(function () {
 			var container = this;
 
 			function zoomInEnter() {
-				$(container).find('img').stop().animate({ 'min-width': '130%', 'min-height': '130%', 'left': '-15%', 'top': '-15%', 'opacity': '1' }, settings.animationTime, settings.figEase);
+				$(container).find('img').stop().animate({'min-height': '120%', 'left': '-15%', 'top': '-15%', 'opacity': '1' }, settings.animationTime, settings.figEase);
 				$(container).find(settings.figTitle).stop().animate({ 'bottom': '0px' }, settings.animationTime, settings.figEase);
 				$(container).find(settings.figInfo).stop().animate({ 'opacity': '1', 'top': '0' }, settings.animationTime, settings.figEase);
 			};
 
 			function zoomInLeave() {
-				$(container).find('img').stop().animate({ 'min-width': '100%', 'min-height': '100%', 'left': '0%', 'top': '0%', 'opacity': '0.7' }, settings.animationTime, settings.figEase);
+				$(container).find('img').stop().animate({'min-height': '100%', 'left': '0%', 'top': '0%', 'opacity': '0.7' }, settings.animationTime, settings.figEase);
 				$(container).find(settings.figTitle).stop().animate({ 'bottom': '-15px' }, settings.animationTime, settings.figEase);
 				$(container).find(settings.figInfo).stop().animate({ 'opacity': '0', 'top': '-15px' }, settings.animationTime, settings.figEase);
 			};
 
 			function zoomOutEnter() {
-				$(container).find('img').stop().animate({ 'min-width': '100%', 'min-height': '100%', 'left': '0%', 'top': '0%', 'opacity': '1' }, settings.animationTime, settings.figEase);
+				$(container).find('img').stop().animate({'min-height': '100%', 'left': '0%', 'top': '0%', 'opacity': '1' }, settings.animationTime, settings.figEase);
 				$(container).find(settings.figTitle).stop().animate({ 'bottom': '0px' }, settings.animationTime, settings.figEase);
 				$(container).find(settings.figInfo).stop().animate({ 'opacity': '1', 'top': '0' }, settings.animationTime, settings.figEase);
 			};
 
 			function zoomOutLeave() {
-				$(container).find('img').stop().animate({ 'min-width': '130%', 'min-height': '130%', 'left': '-15%', 'top': '-15%', 'opacity': '0.7' }, settings.animationTime, settings.figEase);
+				$(container).find('img').stop().animate({'min-height': '120%', 'left': '-15%', 'top': '-15%', 'opacity': '0.7' }, settings.animationTime, settings.figEase);
 				$(container).find(settings.figTitle).stop().animate({ 'bottom': '-15px' }, settings.animationTime, settings.figEase);
 				$(container).find(settings.figInfo).stop().animate({ 'opacity': '0', 'top': '-15px' }, settings.animationTime, settings.figEase);
 			};
