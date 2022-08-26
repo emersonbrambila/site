@@ -5,6 +5,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 ul {
@@ -139,7 +140,7 @@ h3 {
 .Inscricao h4 {
   font-size: 26px;
   color: #fff;
-  margin-bottom: 39px;
+  margin-bottom: 9px;
 }
 
 .Inscricao:hover {
@@ -175,10 +176,81 @@ h3 {
   width: 19%;
 }
 
+.Coluna-Menor:hover {
+  box-shadow: 0 60px 90px -40px rgb(75 14 14 / 60%);
+}
+
 .Coluna-Maior {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   height: 460px;
   width: 40%;
   background: #e94646;
+  padding: 40px;
+  color: #fff;
+}
+
+.Coluna-Maior h1 {
+  font-family: "Raleway";
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-size: 3em;
+}
+
+.Lenda {
+  margin-bottom: 30px;
+}
+
+.Coluna-Maior img {
+  width: 46%;
+  position: absolute;
+  z-index: 0;
+  top: 29px;
+  opacity: 0.6;
+  filter: invert(1);
+}
+
+.Grupo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.BtnComunidade {
+  background: #47393d;
+  color: #fff;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+  font-weight: 800;
+  padding: 20px;
+}
+
+.BtnComunidade:hover {
+  background-color: #ff0000;
+}
+
+.BtnComunidade::after {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid #f5f5f5;
+  transition: .25s;
+}
+
+.BtnComunidade:hover::after {
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
 }
 
 .Border-Radius {
