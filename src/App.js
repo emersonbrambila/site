@@ -147,7 +147,7 @@ function App() {
             <div className="Coluna-Maior Border-Radius">
               <img src={Viajante} alt="Lenda" />
               <div className="Lenda">
-                <h1>TORNE-SE UMA LENDA CONOSCO</h1>
+                <h1 className="line">TORNE-SE UMA LENDA CONOSCO</h1>
                 <p>
                   O universo de Destiny é vasto e encantador. Junto com uma comunidade de milhões de jogadores e nós fazemos parte dela, estamos aqui para te ajudar.
                 </p>

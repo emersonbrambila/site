@@ -20,7 +20,7 @@ h3 {
 
 .Header {
   background: rgba(0, 0, 0, 0.40);
-  height: 70px;
+  height: 100px;
   z-index: 10;
   display: flex;
   justify-content: center;
@@ -63,6 +63,7 @@ h3 {
 
 .Bandeira-Clan {
   width: 30%;
+  z-index: 1;
 }
 
 .Clan-Text {
@@ -200,6 +201,19 @@ h3 {
   font-size: 3em;
 }
 
+.Lenda .line::before {
+  width: 100px;
+  height: 2px;
+  background: #fff;
+  position: absolute;
+  content: "";
+  display: block;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: .25s;
+}
+
 .Lenda {
   margin-bottom: 30px;
 }
@@ -211,6 +225,11 @@ h3 {
   top: 29px;
   opacity: 0.6;
   filter: invert(1);
+  transition: all ease 0.3s;
+}
+
+.Coluna-Maior img:hover {
+  top: 33px;
 }
 
 .Grupo {
