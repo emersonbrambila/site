@@ -72,7 +72,7 @@ function App() {
         backgroundImage: `url(${process.env.PUBLIC_URL + '/banner_principal.jpg'})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100%',
-        maxHeight: '600px',
+        maxHeight: '630px',
       }}>
         <div className='Content'>
           <div className='Body-Content'>
@@ -94,7 +94,7 @@ function App() {
 
             <div className="details-container">
               <ul className="clanList">
-                <li className="membercount" data-aos="fade-up"><div><h3>MEMBROS {clanData.members || 100 }</h3></div></li>
+                <li className="membercount" data-aos="fade-up"><div><h3>MEMBROS {clanData.members || 100}</h3></div></li>
                 <li className="creation" data-aos="fade-up"><div><h3>Criado em {moment(clanData.createAt).format("DD/MM/YYYY")}</h3></div></li>
               </ul>
             </div>
@@ -121,16 +121,28 @@ function App() {
             <h4>Faça parte do clan!</h4>
             <a className='BtnInscricao' href='https://www.bungie.net/pt-br/ClanV2?groupid=4708371' target="_blank" rel='noreferrer' data-aos="zoom-in-up" >Clique aqui</a>
           </div>
-          <div className='Modalide-Jogo'>
-            <div className='Coluna-Menor Border-Radius figure'>
+          <div className="grid Modalide-Jogo">
+            <div className="figure Coluna-Menor Border-Radius">
               <img src={Raid} alt="Raid" />
               <div className="figcaption">
-                <h2>Creative <span>Fresh</span></h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <h2><span>Incursões</span></h2>
+                <p>Se você gosta de raids ou de atividades de alto nível pode contar conosco!</p>
               </div>
             </div>
-            <div className='Coluna-Menor Border-Radius figure'></div>
-            <div className='Coluna-Menor Border-Radius figure'></div>
+            <div className="figure Coluna-Menor Border-Radius">
+              <img src={Assalt} alt="GM" />
+              <div className="figcaption">
+                <h2><span>Grão Mestre</span></h2>
+                <p>Especialistas em GMS nós gostamos de mergulhar nos anoiteceres.</p>
+              </div>
+            </div>
+            <div className="figure Coluna-Menor Border-Radius">
+              <img src={Crisol} alt="Crisol" />
+              <div className="figcaption">
+                <h2><span>Crisol</span></h2>
+                <p>Nada como o maravilhoso PVP de Destiny :o. Eeehw da pra tentar Osiris!</p>
+              </div>
+            </div>
             <div className='Coluna-Maior Border-Radius'></div>
           </div>
         </div>

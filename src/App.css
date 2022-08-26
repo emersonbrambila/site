@@ -1,13 +1,10 @@
-.Header {
-  background: rgba(0, 0, 0, 0.40);
-  height: 70px;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0px;
-  position: absolute;
-  width: 100%;
+* {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 ul {
@@ -18,6 +15,18 @@ ul {
 
 h3 {
   margin: 0;
+}
+
+.Header {
+  background: rgba(0, 0, 0, 0.40);
+  height: 70px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px;
+  position: absolute;
+  width: 100%;
 }
 
 .Lonely-logo {
@@ -89,6 +98,7 @@ h3 {
   right: 0;
   top: 390px;
   border-radius: 20px 0px 0px 20px;
+  z-index: 1;
 }
 
 .clanInfo {
@@ -96,6 +106,10 @@ h3 {
   color: #fff;
   padding: 30px 10px 0px 50px;
   font-size: 15px;
+}
+
+.clanInfo .details-container {
+  margin-top: 20px;
 }
 
 .Caracteristicas {
@@ -159,8 +173,6 @@ h3 {
 .Coluna-Menor {
   height: 460px;
   width: 19%;
-  /* background: #e94646; */
-  border: 1px solid #fff;
 }
 
 .Coluna-Maior {
@@ -242,78 +254,86 @@ button {
   font-family: 'Poppins', sans-serif;
 }
 
-.figure {
-  position: relative;
+.grid .figure {
+  margin: 0;
+  padding: 0;
+  float: left;
   overflow: hidden;
+  background-color: #000;
 }
 
-.figcaption {
+.grid .figure .figcaption {
   left: 0;
   right: 0;
-  padding: 0;
+  padding: 30px;
+  width: 100%;
+  background-repeat: repeat-x;
+  -webkit-background-size: auto 100%;
+  -o-background-size: auto 100%;
+  background-size: auto 100%;
 }
 
-.figcaption h2 {
-  font-family: 'Raleway';
+.grid .figure .figcaption h2 {
+  font-family: "Raleway";
   font-weight: 400;
   text-transform: uppercase;
   margin: 0;
-  top: -15px;
+  bottom: -15px;
   color: #FFF;
-  font-size: 28px;
+  font-size: 25px;
 }
 
-.figcaption span {
+.grid .figure .figcaption h2 span {
   font-weight: 800;
 }
 
-.figcaption p {
+.grid .figure .figcaption p {
   font-size: 14px;
   top: -15px;
   margin: 5px 0 0 0;
-  font-family: 'Raleway';
+  font-family: "Raleway";
   font-weight: 400;
   text-transform: uppercase;
   color: #FFF;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=00)";
-  filter: alpha(opacity=00);
+  filter: alpha(opacity=0);
 }
 
-.figure .top {
+.grid .figure .top {
   position: absolute;
   top: 0;
-  background-position: top;
 }
 
-.figure .center {
+.grid .figure .center {
   position: absolute;
   top: 50%;
   background-position: center;
   padding: 70px 30px;
 }
 
-.figure .bottom {
+.grid .figure .bottom {
   position: absolute;
   bottom: 0;
-  background-position: bottom;
 }
 
-.zoomIn img {
+.grid .zoomIn img {
   min-width: 100%;
   min-height: 100%;
   position: absolute;
   top: 0;
-  left: 0;
+  left: -15%;
   opacity: 0.7;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
   filter: alpha(opacity=70);
 }
 
-.zoomOut img {
-  min-height: 120%;
-  top: -15%;
-  left: -15%;
+.grid .zoomOut img {
+  min-width: 130%;
+  min-height: 130%;
+  position: absolute;
+  top: 0%;
+  left: -55%;
   opacity: 0.7;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
   filter: alpha(opacity=70);
