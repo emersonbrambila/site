@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import "./App.css";
+
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
 import Logo from "./logo.svg";
 import Bandeira from "./bandeira.png";
 import Raid from "./raid.png";
@@ -8,6 +12,7 @@ import Assalt from "./assalt.png";
 import Hunter from "./hunter.png";
 import DestinyIcon from "./destiny-icon.png";
 import Viajante from "./viajante.png";
+
 import axios from "axios";
 
 import moment from "moment";
@@ -33,10 +38,48 @@ const axiosProdConfig = {
 
 function App() {
   const [clanData, setClanData] = useState({});
+  const [clanRoster, setClanRoster] = useState([]);
+  const [clanAdmin, setClanAdmin] = useState([]);
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1
+    }
+  };
+
+  const responsiveMembers = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 6,
+      slidesToSlide: 6,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1
+    }
+  };
 
   useEffect(() => {
     const getClanData = async () => {
-      const data = await axios.get(`${clanBaseurl}/4708371`, process.env.NODE_ENV === "development" ? axioDevConfig : axiosProdConfig);
+      const data = await axios.get(`${clanBaseurl}/4708371`, axiosProdConfig);
 
       if (data) {
         const response = data.data.Response;
@@ -54,6 +97,70 @@ function App() {
     };
 
     getClanData().catch(err => console.log(err))
+  }, []);
+
+  useEffect(() => {
+    const getClanRoster = async () => {
+
+      const clanID = [
+        '4708371'
+      ]
+
+      let roster = [];
+      let cachedRoster = new Map();
+
+      sessionStorage.removeItem('roster');
+
+      for (let i = 0; i < clanID.length; i++) {
+        let request = await axios.get(`${clanBaseurl}/${clanID[i]}/Members`, axiosProdConfig);
+
+        if (request.status === 200 || request.ErrorCode === 1) {
+
+          request.data.Response.results.forEach(player => {
+
+            if (typeof player.bungieNetUserInfo != 'undefined') {
+
+              console.log(player)
+
+              const formattedPlayer = {
+                name: player.destinyUserInfo.bungieGlobalDisplayName,
+                icon: player.bungieNetUserInfo.iconPath,
+                bungieId: player.bungieNetUserInfo.membershipId,
+                destinyId: player.destinyUserInfo.membershipId,
+                memberType: player.memberType,
+                joinDate: player.joinDate,
+                status: player.isOnline ? 'Online' : 'Offline'
+              };
+
+              roster.push(formattedPlayer);
+              cachedRoster.set(player.destinyUserInfo.membershipId, formattedPlayer);
+            } else {
+              console.warn(`Unable to retrieve Bungie Profile for ${player.destinyUserInfo.displayName}`);
+            }
+          });
+
+        } else {
+          // error retrieving roster for associated clan ID in loop
+          console.error(`There was a problem retrieving clan roster for ID #${this.clan.clanIds[i]}`);
+        }
+      }
+
+      if (roster.length) {
+        sessionStorage.setItem('roster', JSON.stringify(roster));
+        roster.sort(function (a, b) {
+          return ((a.status < b.status) ? 1 : ((b.status < a.status) ? -1 : 0));
+        });
+
+        const treatClanAdmin = roster.filter(({ memberType }) => memberType === 3 || memberType === 5);
+        const clanClanMember = roster.filter(({ memberType }) => memberType !== 3 || memberType !== 5);
+
+        setClanAdmin(treatClanAdmin);
+        setClanRoster(clanClanMember);
+      }
+
+    };
+
+    getClanRoster().catch(err => console.log(err))
   }, []);
 
   return (
@@ -156,6 +263,102 @@ function App() {
                 <a className="BtnComunidade" href="https://chat.whatsapp.com/Hq5eB0APdIlC4YQUCorWZ3" target="_blank" rel="noreferrer" data-aos="zoom-in-up" >ENTRE NA COMUNIDADE</a>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div id="membros" className="MembrosOnline">
+        <div className="Content">
+          <div className="Administradores">
+            <h3>Administradores</h3>
+            {
+              clanRoster.length > 0 ?
+                <Carousel
+                  swipeable={false}
+                  draggable={true}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true}
+                  infinite={false}
+                  autoPlay={true}
+                  autoPlaySpeed={1000}
+                  keyBoardControl={true}
+                  transitionDuration={500}
+                  containerclassName="carousel-container"
+                  removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
+                  dotListclassName="custom-dot-list-style"
+                  itemclassName="carousel-item-padding-40-px"
+                >
+                  {
+                    clanAdmin.map(admins =>
+                      <div key={admins.memberType} className="memberContent Border-Radius">
+                        <div className="rosterUser">
+                          <div style={{
+                            backgroundImage: `url(${`https://www.bungie.net${admins.icon}`})`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "100%"
+                          }} className="user-icon">
+
+                            <div className={`${admins.status} ${admins.status === "Online" ? 'pulse' : ''} user-status`}></div>
+
+                          </div>
+                          <div className="user-details">
+                            <div className="user-name">
+                              <p>{admins.name}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
+                </Carousel> :
+                Fragment
+            }
+          </div>
+          <div className="MembrosDoClan">
+            <h3>Membros do Clan</h3>
+            {
+              clanRoster.length > 0 ?
+                <Carousel
+                  swipeable={false}
+                  draggable={true}
+                  showDots={false}
+                  responsive={responsiveMembers}
+                  ssr={true}
+                  infinite={false}
+                  autoPlay={false}
+                  autoPlaySpeed={1000}
+                  keyBoardControl={true}
+                  transitionDuration={500}
+                  containerclassName="carousel-container"
+                  removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
+                  dotListclassName="custom-dot-list-style"
+                  itemclassName="carousel-item-padding-40-px"
+                >
+                  {
+                    clanRoster.map(admins =>
+                      <div key={admins.memberType} className="memberContent Border-Radius">
+                        <div className="rosterUser">
+                          <div style={{
+                            backgroundImage: `url(${`https://www.bungie.net${admins.icon}`})`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "100%"
+                          }} className="user-icon">
+
+                            <div className={`${admins.status} ${admins.status === "Online" ? 'pulse' : ''} user-status`}></div>
+
+                          </div>
+                          <div className="user-details">
+                            <div className="user-name">
+                              <p>{admins.name}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
+                </Carousel> :
+                Fragment
+            }
           </div>
         </div>
       </div>
