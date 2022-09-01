@@ -1,6 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import "./App.css";
 
+import * as Scroll from 'react-scroll';
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -12,6 +15,8 @@ import Assalt from "./assalt.png";
 import Hunter from "./hunter.png";
 import DestinyIcon from "./destiny-icon.png";
 import Viajante from "./viajante.png";
+import GifLoadScreen from "./destiny2-loadscreen-destiny2.gif";
+import Top from "./up-arrow.png";
 
 import axios from "axios";
 
@@ -24,14 +29,14 @@ AOS.init();
 const clanBaseurl = "https://www.bungie.net/platform/groupv2";
 const axioDevConfig = {
   headers: {
-    "X-API-Key": process.env.REACT_APP_APIKEYDEV,
+    "X-API-Key": "e9988948e6c64dae863a5e24e3adca7a",
     "content-type": "application/json"
   }
 };
 
 const axiosProdConfig = {
   headers: {
-    "X-API-Key": process.env.REACT_APP_APIKEYPROD,
+    "X-API-Key": "c7ccdb048acb455aa0ab5005a1bcae96",
     "content-type": "application/json"
   }
 };
@@ -44,8 +49,8 @@ function App() {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3,
+      items: 2,
+      slidesToSlide: 1,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -63,7 +68,7 @@ function App() {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 6,
-      slidesToSlide: 6,
+      slidesToSlide: 1,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -77,9 +82,11 @@ function App() {
     }
   };
 
+  let Link = Scroll.Link;
+
   useEffect(() => {
     const getClanData = async () => {
-      const data = await axios.get(`${clanBaseurl}/4708371`, axiosProdConfig);
+      const data = await axios.get(`${clanBaseurl}/4708371`, process.env.NODE_ENV === "production" ? axiosProdConfig : axioDevConfig);
 
       if (data) {
         const response = data.data.Response;
@@ -112,7 +119,7 @@ function App() {
       sessionStorage.removeItem('roster');
 
       for (let i = 0; i < clanID.length; i++) {
-        let request = await axios.get(`${clanBaseurl}/${clanID[i]}/Members`, axiosProdConfig);
+        let request = await axios.get(`${clanBaseurl}/${clanID[i]}/Members`, process.env.NODE_ENV === "production" ? axiosProdConfig : axioDevConfig);
 
         if (request.status === 200 || request.ErrorCode === 1) {
 
@@ -152,10 +159,10 @@ function App() {
         });
 
         const treatClanAdmin = roster.filter(({ memberType }) => memberType === 3 || memberType === 5);
-        const clanClanMember = roster.filter(({ memberType }) => memberType !== 3 || memberType !== 5);
+        const clanMember = roster.filter(({ memberType }) => memberType !== 3 && memberType !== 5);
 
         setClanAdmin(treatClanAdmin);
-        setClanRoster(clanClanMember);
+        setClanRoster(clanMember);
       }
 
     };
@@ -168,11 +175,11 @@ function App() {
       <div className="Header">
         <div className="Menu">
           <div className="Logo-center">
-            <span className="Menu-Link">HOME</span>
-            <span className="Menu-Link">O CLAN</span>
+            <Link className="Menu-Link" activeClass="active" to="home" spy={true} smooth={true} offset={50} duration={500}>HOME</Link>
+            <Link className="Menu-Link" activeClass="active" to="caracteristicas" spy={true} smooth={true} offset={50} duration={500}>CARACTERÍSTICAS</Link>
             <img className="Lonely-logo" src={Logo} alt="Lonely Wolves" />
-            <span className="Menu-Link">CARACTERÍSTICAS</span>
-            <span className="Menu-Link">JUNTE-SE AO CLAN</span>
+            <Link className="Menu-Link" activeClass="active" to="membros" spy={true} smooth={true} offset={50} duration={500}>O CLAN</Link>
+            <a className="Menu-Link" href="https://chat.whatsapp.com/Hq5eB0APdIlC4YQUCorWZ3" target="_blank" rel="noreferrer">JUNTE-SE AO CLAN</a>
           </div>
         </div>
       </div>
@@ -278,12 +285,12 @@ function App() {
                   showDots={false}
                   responsive={responsive}
                   ssr={true}
-                  infinite={false}
+                  infinite={true}
                   autoPlay={true}
-                  autoPlaySpeed={1000}
+                  autoPlaySpeed={6000}
                   keyBoardControl={true}
                   transitionDuration={500}
-                  containerclassName="carousel-container"
+                  containerclassName="carousel-container-admin"
                   removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
                   dotListclassName="custom-dot-list-style"
                   itemclassName="carousel-item-padding-40-px"
@@ -324,32 +331,32 @@ function App() {
                   showDots={false}
                   responsive={responsiveMembers}
                   ssr={true}
-                  infinite={false}
-                  autoPlay={false}
-                  autoPlaySpeed={1000}
+                  infinite={true}
+                  autoPlay={true}
+                  autoPlaySpeed={5000}
                   keyBoardControl={true}
                   transitionDuration={500}
-                  containerclassName="carousel-container"
+                  containerclassName="carousel-container-member"
                   removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
-                  dotListclassName="custom-dot-list-style"
-                  itemclassName="carousel-item-padding-40-px"
+                  dotListclassName="custom-dot-list-style-member"
+                  itemclassName="carousel-member-item-padding-40-px"
                 >
                   {
-                    clanRoster.map(admins =>
-                      <div key={admins.memberType} className="memberContent Border-Radius">
+                    clanRoster.map(members =>
+                      <div key={members.memberType} className="memberContent Border-Radius">
                         <div className="rosterUser">
                           <div style={{
-                            backgroundImage: `url(${`https://www.bungie.net${admins.icon}`})`,
+                            backgroundImage: `url(${`https://www.bungie.net${members.icon}`})`,
                             backgroundRepeat: "no-repeat",
                             backgroundSize: "100%"
                           }} className="user-icon">
 
-                            <div className={`${admins.status} ${admins.status === "Online" ? 'pulse' : ''} user-status`}></div>
+                            <div className={`${members.status} ${members.status === "Online" ? 'pulse' : ''} user-status`}></div>
 
                           </div>
                           <div className="user-details">
                             <div className="user-name">
-                              <p>{admins.name}</p>
+                              <p>{members.name}</p>
                             </div>
                           </div>
                         </div>
@@ -362,6 +369,25 @@ function App() {
           </div>
         </div>
       </div>
+      <div className="TextPreFooter">
+        <div className="Content">
+          <p>
+            "A luz mora em todos os lugares... em todas as coisas... você pode bloqueá-la... até mesmo tentar prendê-la... mas a luz sempre encontra seu caminho." - O Orador
+          </p>
+        </div>
+      </div>
+      <div className="Footer">
+        <div className="Content">
+          <div className="MenuFooter">
+            <div className="Logo-center">
+              <img className="FooterLogo" src={GifLoadScreen} alt="Lonely Wolves" />
+              <p className="Menu-Link">© 2022 Lonely Wolves.</p>
+              <p className="Menu-Link">Todos os direitos reservados. | Paradigma </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Link activeClass="active" to="top" spy={true} smooth={true} offset={50} duration={500} className="btntop"><img className="Top" src={Top} alt="Top" /></Link>
     </div>
   );
 }
