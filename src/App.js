@@ -29,7 +29,7 @@ AOS.init();
 const clanBaseurl = "https://www.bungie.net/platform/groupv2";
 const axioDevConfig = {
   headers: {
-    "X-API-Key": "e9988948e6c64dae863a5e24e3adca7a",
+    "X-API-Key": "c7ccdb048acb455aa0ab5005a1bcae96", //"e9988948e6c64dae863a5e24e3adca7a",
     "content-type": "application/json"
   }
 };
